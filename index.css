@@ -1,0 +1,67 @@
+body {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  background-color: rgb(231, 231, 231);
+  margin: 0 3%;
+  width: auto;
+}
+
+.banner {
+  padding: 10px;
+  border-radius: 10px;
+  height: 10vh;
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner .logo {
+  position: relative;
+  height: 100%;
+}
+
+.banner .logo img {
+  height: 100%;
+}
+
+.login {
+  margin-right: 3vw;
+  display: flex;
+}
+
+.login button {
+  border-radius: 10px;
+  margin: 0 0.5vw;
+  background-color: white;
+  width: 100px;
+  height: 30px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.login button:hover {
+  background-color: silver;
+  transition: 0.5s;
+}
+
+main {
+  margin-top: 2vh;
+  padding: 1vw;
+  display: flex;
+}
+
+.sidebar {
+  padding: 1vw;
+  border-right: 4px black solid;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar a {
+  margin: 1vh 0;
+  background-color: white;
+  border-radius: 10px;
+}
