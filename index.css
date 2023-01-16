@@ -1,67 +1,61 @@
+:root {
+  --red: #ec4c4c;
+  --black: #343434;
+  --blackDark: #2b2b2b;
+}
+
 body {
   box-sizing: border-box;
 }
 
 .wrapper {
-  background-color: rgb(231, 231, 231);
-  margin: 0 3%;
-  width: auto;
+  margin: 0 3vw;
+  width: 94vw;
 }
 
 .banner {
-  padding: 10px;
-  border-radius: 10px;
-  height: 10vh;
-  background-color: black;
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  transform: skew(20deg);
+}
+
+.logoSquare {
+  background-color: var(--black);
+  width: fit-content;
+
+  display: block;
+}
+
+.logoSquare img {
+  margin: 0 1vw;
+  width: 15vh;
+  transform: skew(-20deg);
+}
+
+.menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-evenly;
+  height: 8vh;
+  background-color: var(--black);
+}
+
+.menu a {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border-left: 5px solid var(--red);
+  justify-content: center;
   align-items: center;
 }
 
-.banner .logo {
-  position: relative;
-  height: 100%;
+.menu a span {
+  color: white;
+  display: block;
+  transform: skew(-20deg);
 }
 
-.banner .logo img {
-  height: 100%;
-}
-
-.login {
-  margin-right: 3vw;
-  display: flex;
-}
-
-.login button {
-  border-radius: 10px;
-  margin: 0 0.5vw;
-  background-color: white;
-  width: 100px;
-  height: 30px;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.login button:hover {
-  background-color: silver;
+.banner a:hover {
+  background-color: var(--blackDark);
   transition: 0.5s;
-}
-
-main {
-  margin-top: 2vh;
-  padding: 1vw;
-  display: flex;
-}
-
-.sidebar {
-  padding: 1vw;
-  border-right: 4px black solid;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar a {
-  margin: 1vh 0;
-  background-color: white;
-  border-radius: 10px;
 }
