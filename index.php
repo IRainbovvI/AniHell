@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,24 +8,78 @@
     <link rel="stylesheet" href="./index.css">
     <title>AniHell</title>
 </head>
+
 <body>
     <div class="wrapper">
         <div class="banner">
-                <a class='logoSquare' href="./index.php"><img src="./images/logo.png" alt="AniHell"></a>
-                <div class="menu">
-                    <a href=""><span>Anime</span></a>
-                    <a href=""><span>Manga</span></a>
-                    <a href=""><span>Users</span></a>
+            <a class='logoSquare' href="./index.php"><img src="./images/logo.png" alt="AniHell"></a>
+            <div class="menu">
+                <a href=""><span>Anime</span></a>
+                <a href=""><span>Manga</span></a>
+                <a href=""><span>Users</span></a>
+                <?php
+                if (isset($_COOKIE['user'])) {
+                    echo '<a href=""><span>Sign Out</span></a>';
+                } else {
+                    echo '<a href=""><span>Profile</span></a>';
+                    echo '<a href=""><span>Sign In</span></a>';
+                }
+                ?>
+            </div>
+        </div>
+        <form class="searchSquare" method="GET">
+            <div class="searchBar">
+                <input type="text" name="search" id="search" placeholder="Enter the name...">
+            </div>
+            <button class="searchButton" type="submit"><span>Search</span></button>
+        </form>
+        <main>
+            <div class="content">
+                <?php
+                $mysqli = new mysqli('localhost', 'root', '', 'anihell');
+                if (isset($_REQUEST['search']) && $_REQUEST['search'] != "") {
+                    $result = $mysqli->query("SELECT * FROM anime WHERE MainTitle LIKE '%" . $mysqli->real_escape_string($_REQUEST['search']) . "%'");
+
+                } else {
+                    $result = $mysqli->query("SELECT * FROM anime");
+
+                }
+                if ($result->num_rows != 0) {
+                    while ($row = $result->fetch_object()) {
+                        echo '<a class="animeContainer" href="">
+                                <img src="' . $row->ImageURL . '" alt="' . $row->MainTitle . '">
+                                <span class="animeTitle">' . $row->MainTitle . '</span>
+                            </a>';
+                    }
+                }
+
+                $mysqli->close();
+                ?>
+            </div>
+            <form method="get" class="genres">
+                <span>Genres:</span>
+                <div class="genresContainer">
                     <?php
-                        if(isset($_COOKIE['user'])){
-                            echo '<a href=""><span>Sign Out</span></a>';
-                        }else{
-                            echo '<a href=""><span>Profile</span></a>'; 
-                            echo '<a href=""><span>Sign In</span></a>';
+                    $mysqli = new mysqli('localhost', 'root', '', 'anihell');
+                    $result = $mysqli->query("SELECT DISTINCT Genres FROM `anime`");
+                    if ($result->num_rows != 0) {
+                        $genres = '';
+                        while ($row = $result->fetch_object()) {
+                            $genres .= $row->Genres . " ";
                         }
+                        $genres = array_unique(explode(" ", trim($genres)));
+                        foreach ($genres as $genre) {
+                            echo '<button type="submit" name="genre" id="genre" value="' . $genre . '" class="genre">
+                            ' . $genre . '
+                            </button>';
+                        }
+                    }
                     ?>
                 </div>
-        </div>
+            </form>
+        </main>
+
     </div>
 </body>
+
 </html>

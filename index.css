@@ -2,9 +2,11 @@
   --red: #ec4c4c;
   --black: #343434;
   --blackDark: #2b2b2b;
+  --blackRed: #b83939;
 }
 
 body {
+  background-color: black;
   box-sizing: border-box;
 }
 
@@ -53,9 +55,136 @@ body {
   color: white;
   display: block;
   transform: skew(-20deg);
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.1vw;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .banner a:hover {
+  background-color: var(--blackDark);
+  transition: 0.5s;
+}
+
+.searchSquare {
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 2vh;
+  display: flex;
+  height: 7vh;
+  transform: skew(20deg);
+}
+
+.searchBar {
+  width: 100%;
+  background-color: var(--black);
+  display: flex;
+  align-items: center;
+}
+
+.searchBar input {
+  width: 100%;
+  margin: 0 2vw;
+  padding: 0.2vw;
+  transform: skew(-20deg);
+  border: 3px solid var(--red);
+  outline: none;
+  font-size: 1rem;
+}
+
+.searchButton {
+  width: 20vw;
+  background-color: var(--red);
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  background-color: var(--blackRed);
+  transition: 0.5s;
+}
+
+.searchButton span {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.1vw;
+  color: white;
+  transform: skew(-20deg);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  display: flex;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+}
+
+.animeContainer {
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+  margin: 1vw;
+  border: 2px solid var(--black);
+  padding: 1vw;
+  text-decoration: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.animeContainer:hover {
+  background-color: var(--blackDark);
+  border-color: var(--red);
+  color: white;
+  transition: 0.3s;
+}
+
+.animeTitle {
+  margin-top: 1vh;
+}
+
+.genres {
+  width: 20%;
+  margin-top: 1vw;
+}
+
+.genres span {
+  display: block;
+  background-color: var(--black);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 1vw;
+}
+
+.genresContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.genre {
+  margin-top: 1vh;
+  background-color: var(--black);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5vw;
+  border-left: 5px solid var(--red);
+  text-align: left;
+  cursor: pointer;
+}
+
+.genre:hover {
   background-color: var(--blackDark);
   transition: 0.5s;
 }
