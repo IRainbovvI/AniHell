@@ -8,6 +8,7 @@
 body {
   background-color: black;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .wrapper {
@@ -49,6 +50,7 @@ body {
   border-left: 5px solid var(--red);
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 }
 
 .menu a span {
@@ -58,7 +60,6 @@ body {
   font-size: 1.2rem;
   font-weight: bold;
   letter-spacing: 0.1vw;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .banner a:hover {
@@ -110,7 +111,6 @@ body {
   letter-spacing: 0.1vw;
   color: white;
   transform: skew(-20deg);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 main {
@@ -134,7 +134,6 @@ main {
   padding: 1vw;
   text-decoration: none;
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   text-align: center;
   font-weight: bold;
@@ -160,7 +159,6 @@ main {
   display: block;
   background-color: var(--black);
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
   padding: 1vw;
@@ -175,7 +173,6 @@ main {
   margin-top: 1vh;
   background-color: var(--black);
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: bold;
   padding: 0.5vw;
@@ -187,4 +184,75 @@ main {
 .genre:hover {
   background-color: var(--blackDark);
   transition: 0.5s;
+}
+
+.registerContainer {
+  background-color: var(--black);
+  width: 100%;
+  margin-top: 2vh;
+}
+
+.registerContainer h2 {
+  color: white;
+  border-bottom: 3px solid var(--red);
+  margin: 2vw;
+}
+
+.registerContainer form {
+  margin: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.registerContainer h3 {
+  text-align: center;
+  color: white;
+  border-bottom: 3px solid var(--red);
+  margin: 2vh auto;
+  padding: 0 1vw;
+}
+
+.avatars {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.avatars [type='radio'] {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.avatars img {
+  width: 10vw;
+  padding: 1vw;
+  cursor: pointer;
+  border: 2px solid black;
+  opacity: 0.4;
+}
+
+.avatars img:hover {
+  border: 2px solid var(--red);
+  opacity: 1;
+}
+
+.avatars [type='radio']:checked + img {
+  border: 2px solid var(--red);
+  opacity: 1;
+}
+
+.registerContainer form div:not(.avatars) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.registerContainer form [type='text'] {
+  border: 3px solid var(--red);
+  outline: none;
+  font-size: 1rem;
+  padding: 0.2vw;
 }

@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../index.css">
     <title>AniHell</title>
 </head>
 
 <body>
     <div class="wrapper">
         <div class="banner">
-            <a class='logoSquare' href="./index.php"><img src="./images/logo.png" alt="AniHell"></a>
+            <a class='logoSquare' href="../index.php"><img src="../images/logo.png" alt="AniHell"></a>
             <div class="menu">
-                <a href="./index.php"><span>Anime</span></a>
-                <a href="./pages/manga.php"><span>Manga</span></a>
+                <a href="../index.php"><span>Anime</span></a>
+                <a href="./manga.php"><span>Manga</span></a>
                 <a href=""><span>Users</span></a>
                 <?php
                 if (isset($_COOKIE['user'])) {
@@ -23,7 +23,7 @@
                     echo '<a href=""><span>Sign Out</span></a>';
 
                 } else {
-                    echo '<a href="./pages/register.php"><span>Sign Up</span></a>';
+                    echo '<a href="./register.php"><span>Sign Up</span></a>';
                     echo '<a href=""><span>Sign In</span></a>';
                 }
                 ?>
@@ -40,12 +40,12 @@
                 <?php
                 $mysqli = new mysqli('localhost', 'root', '', 'anihell');
                 if (isset($_REQUEST['search']) && $_REQUEST['search'] != "") {
-                    $result = $mysqli->query("SELECT * FROM anime WHERE MainTitle LIKE '%" . $mysqli->real_escape_string($_REQUEST['search']) . "%'");
+                    $result = $mysqli->query("SELECT * FROM manga WHERE MainTitle LIKE '%" . $mysqli->real_escape_string($_REQUEST['search']) . "%'");
 
                 } else if (isset($_REQUEST['genre']) && $_REQUEST['genre'] != "") {
-                    $result = $mysqli->query("SELECT * FROM anime WHERE Genres LIKE '%" . $mysqli->real_escape_string($_REQUEST['genre']) . "%'");
+                    $result = $mysqli->query("SELECT * FROM manga WHERE Genres LIKE '%" . $mysqli->real_escape_string($_REQUEST['genre']) . "%'");
                 } else {
-                    $result = $mysqli->query("SELECT * FROM anime");
+                    $result = $mysqli->query("SELECT * FROM manga");
 
                 }
                 if ($result->num_rows != 0) {
@@ -65,7 +65,7 @@
                 <div class="genresContainer">
                     <?php
                     $mysqli = new mysqli('localhost', 'root', '', 'anihell');
-                    $result = $mysqli->query("SELECT DISTINCT Genres FROM `anime`");
+                    $result = $mysqli->query("SELECT DISTINCT Genres FROM `manga`");
                     if ($result->num_rows != 0) {
                         $genres = '';
                         while ($row = $result->fetch_object()) {
