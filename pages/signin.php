@@ -19,7 +19,7 @@ session_start();
             <div class="menu">
                 <a href="../index.php"><span>Anime</span></a>
                 <a href="./manga.php"><span>Manga</span></a>
-                <a href=""><span>Users</span></a>
+                <a href="./users.php"><span>Users</span></a>
                 <?php
                 if (isset($_SESSION['username'])) {
                     echo '<a href=""><span>Profile</span></a>';
@@ -36,15 +36,17 @@ session_start();
                 <h2>Log In</h2>
                 <?php
                 if (isset($_REQUEST['submit'])) {
-                    $password = hash('sha256', $_POST['password']);
-                    $username = $_POST['username'];
                     $mysqli = new mysqli('localhost', 'root', '', 'anihell');
+                    $password = hash('sha256', $mysqli->real_escape_string($_POST['password']));
+                    $username = $mysqli->real_escape_string($_POST['username']);
                     $result = $mysqli->query("SELECT `UserName` FROM users WHERE `UserName` LIKE '{$username}' AND `Password` LIKE '{$password}'");
                     if ($result->num_rows != 0) {
                         $_SESSION['username'] = $username;
+                        $mysqli->close();
                         header("Location: http://localhost/PHP/AniHell/index.php");
                     } else {
                         echo "<p class='error'>Wrong credentials.</p>";
+                        $mysqli->close();
                     }
                 }
                 ?>

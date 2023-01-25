@@ -19,7 +19,7 @@ session_start();
             <div class="menu">
                 <a href="../index.php"><span>Anime</span></a>
                 <a href="./manga.php"><span>Manga</span></a>
-                <a href=""><span>Users</span></a>
+                <a href="./users.php"><span>Users</span></a>
                 <?php
                 if (isset($_SESSION['username'])) {
                     echo '<a href=""><span>Profile</span></a>';
@@ -41,12 +41,12 @@ session_start();
                         echo "<p class='error'>Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.</p>";
                     } else {
                         $mysqli = new mysqli('localhost', 'root', '', 'anihell');
-                        $username = $_POST['username'];
-                        $password = hash("sha256", $password);
+                        $username = $mysqli->real_escape_string($_POST['username']);
+                        $password = hash("sha256", $mysqli->real_escape_string($password));
                         $avatar = isset($_POST['avatar']) ? $_POST['avatar'] : 0;
                         $joined = date('Y-m-d');
                         $gender = $_POST['gender'];
-                        $bio = isset($_POST['bio']) ? $_POST['bio'] : "";
+                        $bio = isset($_POST['bio']) ? $mysqli->real_escape_string($_POST['bio']) : "";
                         $result = $mysqli->query("SELECT * FROM users WHERE `UserName` LIKE '{$username}'");
                         if ($result->num_rows != 0) {
                             echo "<p class='error'>Username is already taken.</p>";

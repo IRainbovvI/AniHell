@@ -19,7 +19,7 @@ session_start();
             <div class="menu">
                 <a href="./index.php"><span>Anime</span></a>
                 <a href="./pages/manga.php"><span>Manga</span></a>
-                <a href=""><span>Users</span></a>
+                <a href="./pages/users.php"><span>Users</span></a>
                 <?php
                 if (isset($_SESSION["username"])) {
                     echo '<a href=""><span>Profile</span></a>';
@@ -44,16 +44,14 @@ session_start();
                 $mysqli = new mysqli('localhost', 'root', '', 'anihell');
                 if (isset($_REQUEST['search']) && $_REQUEST['search'] != "") {
                     $result = $mysqli->query("SELECT * FROM anime WHERE MainTitle LIKE '%" . $mysqli->real_escape_string($_REQUEST['search']) . "%'");
-
                 } else if (isset($_REQUEST['genre']) && $_REQUEST['genre'] != "") {
                     $result = $mysqli->query("SELECT * FROM anime WHERE Genres LIKE '%" . $mysqli->real_escape_string($_REQUEST['genre']) . "%'");
                 } else {
                     $result = $mysqli->query("SELECT * FROM anime");
-
                 }
                 if ($result->num_rows != 0) {
                     while ($row = $result->fetch_object()) {
-                        echo '<a class="animeContainer" href="">
+                        echo '<a class="animeContainer" href="./pages/entity.php?type=anime&id=' . $row->ID . '">
                                 <img src="' . $row->ImageURL . '" alt="' . $row->MainTitle . '">
                                 <span class="animeTitle">' . $row->MainTitle . '</span>
                             </a>';

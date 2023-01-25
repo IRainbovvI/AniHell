@@ -19,7 +19,7 @@ session_start();
             <div class="menu">
                 <a href="../index.php"><span>Anime</span></a>
                 <a href="./manga.php"><span>Manga</span></a>
-                <a href="./users.php"><span>Users</span></a>
+                <a href=""><span>Users</span></a>
                 <?php
                 if (isset($_SESSION['username'])) {
                     echo '<a href=""><span>Profile</span></a>';
@@ -43,19 +43,17 @@ session_start();
                 <?php
                 $mysqli = new mysqli('localhost', 'root', '', 'anihell');
                 if (isset($_REQUEST['search']) && $_REQUEST['search'] != "") {
-                    $result = $mysqli->query("SELECT * FROM manga WHERE MainTitle LIKE '%" . $mysqli->real_escape_string($_REQUEST['search']) . "%'");
+                    $result = $mysqli->query("SELECT * FROM users WHERE UserName LIKE '%" . $mysqli->real_escape_string($_REQUEST['search']) . "%'");
 
-                } else if (isset($_REQUEST['genre']) && $_REQUEST['genre'] != "") {
-                    $result = $mysqli->query("SELECT * FROM manga WHERE Genres LIKE '%" . $mysqli->real_escape_string($_REQUEST['genre']) . "%'");
                 } else {
-                    $result = $mysqli->query("SELECT * FROM manga");
+                    $result = $mysqli->query("SELECT * FROM users");
 
                 }
                 if ($result->num_rows != 0) {
                     while ($row = $result->fetch_object()) {
-                        echo '<a class="animeContainer" href="./entity.php?type=manga&id=' . $row->ID . '">
-                                <img src="' . $row->ImageURL . '" alt="' . $row->MainTitle . '">
-                                <span class="animeTitle">' . $row->MainTitle . '</span>
+                        echo '<a class="animeContainer" href="./entity.php?type=users&id=' . $row->ID . '">
+                                <img src="' . "../images/avatars/" . $row->ImageURL . ".jpg" . '" alt="' . $row->UserName . '">
+                                <span class="animeTitle">' . $row->UserName . '</span>
                             </a>';
                     }
                 }
@@ -63,26 +61,6 @@ session_start();
                 $mysqli->close();
                 ?>
             </div>
-            <form method="get" class="genres">
-                <span>Genres:</span>
-                <div class="genresContainer">
-                    <?php
-                    $mysqli = new mysqli('localhost', 'root', '', 'anihell');
-                    $result = $mysqli->query("SELECT DISTINCT Genres FROM `manga`");
-                    if ($result->num_rows != 0) {
-                        $genres = '';
-                        while ($row = $result->fetch_object()) {
-                            $genres .= $row->Genres . " ";
-                        }
-                        $genres = array_unique(explode(" ", trim($genres)));
-                        foreach ($genres as $genre) {
-                            echo '<button type="submit" name="genre" id="genre" value="' . $genre . '" class="genre">
-                            ' . $genre . '
-                            </button>';
-                        }
-                    }
-                    ?>
-                </div>
             </form>
         </main>
 

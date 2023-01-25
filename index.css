@@ -138,6 +138,7 @@ main {
   font-size: 1.2rem;
   text-align: center;
   font-weight: bold;
+  max-width: 13vw;
 }
 
 .animeContainer:hover {
@@ -327,4 +328,90 @@ main {
   border-bottom: 3px solid var(--red);
   margin: 2vh auto;
   padding: 0 1vw;
+}
+
+.entityContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--black);
+  margin-top: 2vh;
+}
+
+.entityContent h2 {
+  color: white;
+  border-bottom: 3px solid var(--red);
+  margin: 2vw;
+  text-align: center;
+}
+
+.entityContent .upperRow {
+  margin: 0 2vw;
+  width: 1fr;
+  display: flex;
+  justify-content: space-between;
+}
+
+.entityContent .upperRow img {
+  min-width: 20%;
+  max-width: 20%;
+  width: 20%;
+}
+
+.entityContent .description {
+  color: white;
+  margin-right: 2vw;
+}
+
+.entityContent .lowerRow {
+  display: flex;
+  flex-direction: row;
+  margin: 0 2vw;
+}
+
+.entityContent .info {
+  color: white;
+  width: 20%;
+  min-width: 20%;
+}
+
+.entityContent .info p {
+  border-left: 3px solid var(--red);
+  padding-left: 1vw;
+  font-size: 1.1rem;
+}
+
+.entityContent .lowerRow div:not(.info) {
+  flex-grow: 1;
+}
+
+.entityContent .lowerRow .listLiked {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.entityContent .lowerRow .listLiked .entityContainer {
+  width: 10vw;
+  display: flex;
+  flex-direction: column;
+  margin: 1vw;
+  border: 2px solid var(--blackDark);
+  padding: 1vw;
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.entityContent .lowerRow .listLiked .entityContainer:hover {
+  background-color: var(--blackDark);
+  border-color: var(--red);
+  color: white;
+  transition: 0.3s;
+}
+
+.entityTitle {
+  margin-top: 1vh;
 }
