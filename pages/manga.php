@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,13 +21,13 @@
                 <a href="./manga.php"><span>Manga</span></a>
                 <a href=""><span>Users</span></a>
                 <?php
-                if (isset($_COOKIE['user'])) {
+                if (isset($_SESSION['username'])) {
                     echo '<a href=""><span>Profile</span></a>';
-                    echo '<a href=""><span>Sign Out</span></a>';
+                    echo '<a href="./signout.php"><span>Sign Out</span></a>';
 
                 } else {
                     echo '<a href="./register.php"><span>Sign Up</span></a>';
-                    echo '<a href=""><span>Sign In</span></a>';
+                    echo '<a href="./signin.php"><span>Sign In</span></a>';
                 }
                 ?>
             </div>

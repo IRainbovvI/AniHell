@@ -116,6 +116,7 @@ body {
 main {
   display: flex;
   width: 100%;
+  justify-content: center;
 }
 
 .content {
@@ -236,6 +237,7 @@ main {
 .avatars img:hover {
   border: 2px solid var(--red);
   opacity: 1;
+  transition: 0.5s;
 }
 
 .avatars [type='radio']:checked + img {
@@ -250,9 +252,79 @@ main {
   margin: 0 auto;
 }
 
-.registerContainer form [type='text'] {
+.registerContainer form [type='text'],
+.registerContainer form [type='password'],
+.loginContainer form [type='text'],
+.loginContainer form [type='password'] {
   border: 3px solid var(--red);
   outline: none;
   font-size: 1rem;
   padding: 0.2vw;
+}
+
+.registerContainer form select {
+  width: fit-content;
+  font-size: 1rem;
+  border: 3px solid var(--red);
+  padding: 0.2vw;
+  outline: none;
+}
+
+.registerContainer form textarea {
+  border: 3px solid var(--red);
+  outline: none;
+  font-size: 1rem;
+  padding: 0.2vw;
+  width: 25vw;
+  height: 10vh;
+}
+
+.registerContainer form [type='submit'],
+.loginContainer form [type='submit'] {
+  width: 10vw;
+  margin: 2vh auto;
+  background-color: var(--black);
+  color: white;
+  border: 3px solid var(--red);
+  padding: 0.2vw;
+  font-size: 1rem;
+}
+
+.registerContainer form [type='submit']:hover,
+.loginContainer form [type='submit']:hover {
+  background-color: var(--blackDark);
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.loginContainer {
+  background-color: var(--black);
+  width: 30%;
+  margin-top: 2vh;
+}
+
+.error {
+  text-align: center;
+  color: red;
+}
+
+.loginContainer h2 {
+  color: white;
+  border-bottom: 3px solid var(--red);
+  margin: 2vw;
+}
+
+.loginContainer form {
+  margin: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginContainer h3 {
+  text-align: center;
+  color: white;
+  border-bottom: 3px solid var(--red);
+  margin: 2vh auto;
+  padding: 0 1vw;
 }
