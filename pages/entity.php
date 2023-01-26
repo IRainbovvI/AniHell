@@ -21,8 +21,12 @@ session_start();
                 <a href="./manga.php"><span>Manga</span></a>
                 <a href="./users.php"><span>Users</span></a>
                 <?php
+                $mysqli = new mysqli('localhost', 'root', '', 'anihell');
                 if (isset($_SESSION['username'])) {
-                    echo '<a href=""><span>Profile</span></a>';
+                    $result = $mysqli->query("SELECT ID FROM users WHERE UserName LIKE '{$_SESSION['username']}'");
+                    $user_Id = $result->fetch_object();
+                    $user_Id = $user_Id->ID;
+                    echo '<a href="./entity.php?mode=edit&type=users&id=' . $user_Id . '"><span>Profile</span></a>';
                     echo '<a href="./signout.php"><span>Sign Out</span></a>';
 
                 } else {
@@ -37,7 +41,7 @@ session_start();
                 <?php
                 $id = $_GET['id'];
                 $type = $_GET['type'];
-                $mysqli = new mysqli('localhost', 'root', '', 'anihell');
+
                 ?>
                 <?php
                 if ($type == 'anime') {
@@ -75,16 +79,45 @@ session_start();
                 <div class="upperRow">
                     <?php
                     echo '<div class="description">';
-                    echo '<p>' . $description . '</p>';
+                    if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'edit') {
+                        echo "<form method='POST'>";
+                        echo "<textarea name='bio'>{$description}</textarea>";
+                        echo "<button type='submit' name='changeBio'>Save Bio</button>";
+                        echo "</form>";
+                    } else {
+                        echo '<p>' . $description . '</p>';
+                    }
+
                     echo '</div>';
+                    echo '<div class="image">';
                     if ($type == 'anime') {
                         echo '<img src="' . $imageURL . '" >';
+                        echo "<form method='POST'>";
+                        if (isset($_SESSION['username'])) {
+                            $result = $mysqli->query("SELECT * FROM `likedanime` INNER JOIN users On likedanime.UserID=users.ID WHERE users.UserName Like '{$_SESSION['username']}' AND likedanime.AnimeID={$id}");
+                            if ($result->num_rows != 0) {
+                                echo '<button type="submit" name="submit" value="remove">Remove from Favorite</button>';
+                            } else {
+                                echo '<button type="submit" name="submit" value="add">Add to Favorite</button>';
+                            }
+                        }
+                        echo "</form>";
                     } else if ($type == 'manga') {
                         echo '<img src="' . $imageURL . '" >';
+                        echo "<form method='POST'>";
+                        if (isset($_SESSION['username'])) {
+                            $result = $mysqli->query("SELECT * FROM `likedmanga` INNER JOIN users On likedmanga.UserID=users.ID WHERE users.UserName Like '{$_SESSION['username']}' AND likedmanga.MangaID={$id}");
+                            if ($result->num_rows != 0) {
+                                echo '<button type="submit" name="submit" value="remove">Remove from Favorite</button>';
+                            } else {
+                                echo '<button type="submit" name="submit" value="add">Add to Favorite</button>';
+                            }
+                        }
+                        echo "</form>";
                     } else {
                         echo '<img src="../images/avatars/' . $imageURL . '.jpg" >';
                     }
-
+                    echo '</div>';
                     ?>
                 </div>
                 <div class="lowerRow">
@@ -174,7 +207,39 @@ session_start();
                 </div>
             </div>
         </main>
+        <?php
+        if (isset($_REQUEST['submit'])) {
+            $result = $mysqli->query("SELECT ID FROM users WHERE UserName LIKE '{$_SESSION['username']}'");
+            $user_Id = $result->fetch_object();
+            $user_Id = $user_Id->ID;
+            if ($type == 'anime') {
+                if ($_REQUEST['submit'] == 'add') {
+                    $mysqli->query("INSERT INTO likedanime VALUES (NULL, '{$user_Id}', '{$id}')");
+                } else {
+                    $mysqli->query("DELETE FROM likedanime WHERE AnimeID = '{$id}' AND UserID='{$user_Id}'");
+                }
+            } else {
+                if ($_REQUEST['submit'] == 'add') {
+                    $mysqli->query("INSERT INTO likedmanga VALUES (NULL, '{$user_Id}', '{$id}')");
+                } else {
+                    $mysqli->query("DELETE FROM likedmanga WHERE MangaID = '{$id}' AND UserID='{$user_Id}'");
+                }
+            }
+            header("Location: ./entity.php?type={$type}&id={$id}");
+        }
+
+        if (isset($_REQUEST['changeBio'])) {
+            $result = $mysqli->query("SELECT ID FROM users WHERE UserName LIKE '{$_SESSION['username']}'");
+            $user_Id = $result->fetch_object();
+            $user_Id = $user_Id->ID;
+            $bio = $mysqli->real_escape_string($_POST['bio']);
+            $mysqli->query("UPDATE users SET Bio = '{$bio}' WHERE `users`.`ID` = {$user_Id}");
+            header("Location: ./entity.php?mode=edit&type={$type}&id={$id}");
+        }
+
+        ?>
     </div>
+
 </body>
 
 </html>

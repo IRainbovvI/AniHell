@@ -21,8 +21,12 @@ session_start();
                 <a href="./manga.php"><span>Manga</span></a>
                 <a href="./users.php"><span>Users</span></a>
                 <?php
+                $mysqli = new mysqli('localhost', 'root', '', 'anihell');
                 if (isset($_SESSION['username'])) {
-                    echo '<a href=""><span>Profile</span></a>';
+                    $result = $mysqli->query("SELECT ID FROM users WHERE UserName LIKE '{$_SESSION['username']}'");
+                    $user_Id = $result->fetch_object();
+                    $user_Id = $user_Id->ID;
+                    echo '<a href="./entity.php?mode=edit&type=users&id=' . $user_Id . '"><span>Profile</span></a>';
                     echo '<a href="./signout.php"><span>Sign Out</span></a>';
                 } else {
                     echo '<a href="./register.php"><span>Sign Up</span></a>';
@@ -40,7 +44,7 @@ session_start();
                     if (!preg_match('@[A-Z]@', $password) || !preg_match('@[a-z]@', $password) || !preg_match('@[0-9]@', $password) || !preg_match('@[^\w]@', $password) || strlen($password) < 8) {
                         echo "<p class='error'>Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.</p>";
                     } else {
-                        $mysqli = new mysqli('localhost', 'root', '', 'anihell');
+
                         $username = $mysqli->real_escape_string($_POST['username']);
                         $password = hash("sha256", $mysqli->real_escape_string($password));
                         $avatar = isset($_POST['avatar']) ? $_POST['avatar'] : 0;

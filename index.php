@@ -21,8 +21,12 @@ session_start();
                 <a href="./pages/manga.php"><span>Manga</span></a>
                 <a href="./pages/users.php"><span>Users</span></a>
                 <?php
+                $mysqli = new mysqli('localhost', 'root', '', 'anihell');
                 if (isset($_SESSION["username"])) {
-                    echo '<a href=""><span>Profile</span></a>';
+                    $result = $mysqli->query("SELECT ID FROM users WHERE UserName LIKE '{$_SESSION['username']}'");
+                    $user_Id = $result->fetch_object();
+                    $user_Id = $user_Id->ID;
+                    echo '<a href="./pages/entity.php?mode=edit&type=users&id=' . $user_Id . '"><span>Profile</span></a>';
                     echo '<a href="./pages/signout.php"><span>Sign Out</span></a>';
 
                 } else {
@@ -41,7 +45,6 @@ session_start();
         <main>
             <div class="content">
                 <?php
-                $mysqli = new mysqli('localhost', 'root', '', 'anihell');
                 if (isset($_REQUEST['search']) && $_REQUEST['search'] != "") {
                     $result = $mysqli->query("SELECT * FROM anime WHERE MainTitle LIKE '%" . $mysqli->real_escape_string($_REQUEST['search']) . "%'");
                 } else if (isset($_REQUEST['genre']) && $_REQUEST['genre'] != "") {

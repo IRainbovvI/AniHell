@@ -21,8 +21,12 @@ session_start();
                 <a href="./manga.php"><span>Manga</span></a>
                 <a href="./users.php"><span>Users</span></a>
                 <?php
+                $mysqli = new mysqli('localhost', 'root', '', 'anihell');
                 if (isset($_SESSION['username'])) {
-                    echo '<a href=""><span>Profile</span></a>';
+                    $result = $mysqli->query("SELECT ID FROM users WHERE UserName LIKE '{$_SESSION['username']}'");
+                    $user_Id = $result->fetch_object();
+                    $user_Id = $user_Id->ID;
+                    echo '<a href="./entity.php?mode=edit&type=users&id=' . $user_Id . '"><span>Profile</span></a>';
                     echo '<a href="./signout.php"><span>Sign Out</span></a>';
                 } else {
                     echo '<a href="./register.php"><span>Sign Up</span></a>';
@@ -36,7 +40,7 @@ session_start();
                 <h2>Log In</h2>
                 <?php
                 if (isset($_REQUEST['submit'])) {
-                    $mysqli = new mysqli('localhost', 'root', '', 'anihell');
+
                     $password = hash('sha256', $mysqli->real_escape_string($_POST['password']));
                     $username = $mysqli->real_escape_string($_POST['username']);
                     $result = $mysqli->query("SELECT `UserName` FROM users WHERE `UserName` LIKE '{$username}' AND `Password` LIKE '{$password}'");
